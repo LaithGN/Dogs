@@ -43,8 +43,6 @@ namespace Dogs
         DateTime SearchDate(string text)
         {
             string[] strings = text.Split(new string[] { "paid-till:", "free-date:", "Registrar", "Registry Expiry Date:" },StringSplitOptions.RemoveEmptyEntries);
-            if (strings.Length < 2 )
-                strings = text.Split(new string[] { "Registry Expiry Date:", "Registrar:" }, StringSplitOptions.RemoveEmptyEntries);
             var dateRaw = strings[1].Split(@"\");
             return Convert.ToDateTime(dateRaw[0]);
         }
