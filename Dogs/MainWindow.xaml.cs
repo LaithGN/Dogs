@@ -41,14 +41,14 @@ namespace Dogs
                 RequestDomen domen = new RequestDomen();
                 var rawXml = domen.Requests(Domen.Trim());
                 helper.Writer(rawXml);
-                var result = helper.Reader(date);
+                var result = helper.Reader(date,Domen);
                 if (result)
                     list.Add(Domen);
             }
             if(list.FirstOrDefault()!=null)
                 foreach(string Domen in list)
                 {
-                    ResultList.Text += Domen + "\t";
+                    ResultList.Text += Domen + "\r\n";
                 }
             Dogs.Visibility = Visibility.Collapsed;
             Result.Visibility = Visibility.Visible;

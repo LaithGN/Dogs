@@ -1,4 +1,5 @@
-﻿using Spire.Doc;
+﻿using Microsoft.Win32;
+using Spire.Doc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,24 +21,20 @@ namespace Dogs
             converter();
         }
 
-        public bool Reader(DateTime date)
+        public bool Reader(DateTime date, string domen)
         {
             DateTime? searchDate = null;
             using (StreamReader reader = new StreamReader("test.xml",Encoding.UTF8,true))
             {
                 XElement element = XElement.Load(reader);
-                var el = element.XPathSelectElement("//item[11]/items[1]/item[3]");
-                if (el == null)
+                var el = element.XPathSelectElements(".//item[5]/items[1]/item/text");
+                foreach(var text  in el)
                 {
-                    var els = element.XPathSelectElements(".//item[12]/items[1]");
-                    foreach(var text  in els)
-                    {
-                        if (text.Value.Contains("paid-till"))
-                            searchDate = SearchDate(text.Value);
-                    }
+                    if (text.Value.Contains("paid-till"))
+                        searchDate = SearchDate(text.Value);
+                    else if (text.Value.Contains("Registry Expiry Date:"))
+                        searchDate = SearchDate(text.Value);
                 }
-                if(searchDate == null)
-                    searchDate = SearchDate(el.Value);
                 if (searchDate > date)
                     return true;
                 return false;
@@ -45,7 +42,7 @@ namespace Dogs
         }
         DateTime SearchDate(string text)
         {
-            string[] strings = text.Split(new string[] { "paid-till:", "free-date:" },StringSplitOptions.RemoveEmptyEntries);
+            string[] strings = text.Split(new string[] { "paid-till:", "free-date:", "Registrar", "Registry Expiry Date:" },StringSplitOptions.RemoveEmptyEntries);
             if (strings.Length < 2 )
                 strings = text.Split(new string[] { "Registry Expiry Date:", "Registrar:" }, StringSplitOptions.RemoveEmptyEntries);
             var dateRaw = strings[1].Split(@"\");
