@@ -1,0 +1,75 @@
+﻿<Window x:Class="Dogs.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dogs"
+        mc:Ignorable="d"
+        Title="DogsSercher" Height="450" Width="800">
+    <Grid>
+        <Grid Name="Dogs" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="108*"/>
+                <ColumnDefinition Width="133*"/>
+                <ColumnDefinition Width="133*"/>
+                <ColumnDefinition Width="133*"/>
+                <ColumnDefinition Width="133*"/>
+                <ColumnDefinition Width="133*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2" Grid.Column="3" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="59,0,0,0" >
+                Список доменнов
+            </TextBlock>
+            <ScrollViewer Margin="0,5,0,5" Grid.Row="1" Grid.ColumnSpan="7" Grid.Column="0" Grid.RowSpan="6">
+                <TextBox Name="DomenList" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
+
+                </TextBox>
+            </ScrollViewer>
+            <DatePicker Name="DogDate" Grid.Column="1" Margin="108,5,133,5" Grid.Row="7" Grid.ColumnSpan="3"/>
+            <Button Name="Scan" Grid.Column="4" Margin="133,5,133,5" Grid.Row="7" Click="Scan_Click" Grid.ColumnSpan="3">
+                Сканирование
+            </Button>
+        </Grid>
+        <Grid Name="Result" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="6" Grid.Column="0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                Список прошедших проверку
+            </TextBlock>
+            <ScrollViewer Margin="0,5,0,5" Grid.Row="1" Grid.ColumnSpan="6" Grid.Column="0" Grid.RowSpan="6">
+                <TextBox IsReadOnly="True" Name="ResultList" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
+
+                </TextBox>
+            </ScrollViewer>
+            <Button Name="Back" Grid.Column="4" Margin="0,5,0,5" Grid.Row="7" Click="Back_Click">
+                Назад
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
