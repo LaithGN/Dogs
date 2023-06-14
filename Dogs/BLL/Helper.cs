@@ -22,13 +22,22 @@ namespace Dogs
 
         public bool Reader(DateTime date)
         {
+            DateTime? searchDate = null;
             using (StreamReader reader = new StreamReader("test.xml",Encoding.UTF8,true))
             {
                 XElement element = XElement.Load(reader);
                 var el = element.XPathSelectElement("//item[11]/items[1]/item[3]");
                 if (el == null)
-                    el = element.XPathSelectElement("//item[12]/items[1]/item[3]");
-                var searchDate = SearchDate(el.Value);
+                {
+                    var els = element.XPathSelectElements(".//item[12]/items[1]");
+                    foreach(var text  in els)
+                    {
+                        if (text.Value.Contains("paid-till"))
+                            searchDate = SearchDate(text.Value);
+                    }
+                }
+                if(searchDate == null)
+                    searchDate = SearchDate(el.Value);
                 if (searchDate > date)
                     return true;
                 return false;
